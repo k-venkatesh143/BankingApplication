@@ -1,1 +1,71 @@
+Bankproject:
 
+
+
+models.py
+
+from django.db import models
+from django.db.models import Model
+
+ 
+class ContactModel(models.Model):
+    name = models.CharField(max_length=120)
+    mobile = models.IntegerField()
+    email = models.EmailField()
+    acno=models.IntegerField()
+    Deposite=models.IntegerField()
+    withdraw=models.IntegerField()
+    balance=models.IntegerField()
+    is_balance=models.BooleanField(default=False)
+
+    def withdraw_money(self):
+           balance=0
+            if(self.is_balance==True):
+                  balance=self.deposite-self.withdraw
+             return balance
+
+
+--------------------------------------------------------------
+admin.py
+
+from django.contrib import admin
+from coffeehouse.items.models import Item
+
+class  BankAdmin(admin.ModelAdmin):
+    list_display = ['name','mobile ','acno','balance','deposite','withdraw' ]
+    
+      
+admin.site.register(contactmodel, BankAdmin)
+
+---------------------------------------------------------------------
+urls.py
+
+from django.urls import include,path
+from django.contrib import admin
+
+urlpatterns = [  
+    path('admin/', admin.site.urls),  
+]  
+
+-----------------------------------------------------------------------
+
+
+
+#Create an Admin User by following command
+
+ python managen.py createsuperuser   
+
+
+
+#Run server by this command 
+
+python manage.py runserver
+
+
+
+
+
+
+
+                    
+  
